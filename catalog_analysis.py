@@ -211,5 +211,25 @@ result = {i["title"]: i["rating"]
 for i in movies if i["rating"] > average_rating(movies)}
 
 
+def all_genres(movies):
+    """Возвращает множество всех уникальных жанров"""
+    set_genres = set()
+    for i in movies:
+        set_genres.update(i["genres"])
+    return set_genres
 
-print(result)
+
+def common_actors(movie1, movie2):
+    """Возвращает множество актеров, снимавшихся в обоих фильмах"""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Возвращает жанры, встречающиеся в movies_a, но не встречающиеся в movies_b"""
+    set_a = all_genres(movies_a)
+    set_b = all_genres(movies_b)
+    return set_a - set_b
+
+
+
+
