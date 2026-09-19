@@ -153,4 +153,26 @@ def count_long_movies(movies, threshold=120):
             count += 1
     return count
 
-print(count_long_movies(movies, threshold=120))
+
+def normalize_title(title):
+    """Возвращает строку форматом Title Case (каждое слово с заглавной буквы)"""
+    words = title.lower().split()
+    full_words = []
+    for word in words:
+        full_words.append(word[0].upper() + word[1:])
+    return " ".join(full_words)
+
+
+def make_slug(title):
+    """Возвращает нормализованное название в «слаг» вида 'the-quiet-algorithm'"""
+    return title.lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    return (
+        f'"{movie["title"]}" ({movie["year"]}) — {movie["rating"]}/10, ' 
+        f'{duration_in_hours(movie["duration_min"])}, '
+        f'жанры: {", ".join(sorted(movie["genres"]))}')
+
+
+print(format_report_line(movies[7]))
