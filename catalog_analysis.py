@@ -118,6 +118,7 @@ def rating_tier(rating):
 
 
 def decade_label(year):
+    """Возвращает категорию фильма по году выпуска фильма"""
     match year:
         case _ if year > 2020:
             return "новые"
@@ -127,4 +128,29 @@ def decade_label(year):
             return "старые"
 
 
-print(decade_label(2020.5))
+for i in movies:
+    if "comedy" in i["genres"]:
+        continue
+    print(i["title"])
+
+
+index  = 0
+while index < len(movies):
+    movie = movies[index]
+    if movie["rating"] > 9.0:
+        print(movie)
+        break
+    index += 1
+else:
+    print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold=120):
+    """Возвращает количество фильмов с длительность большем threshold"""
+    count = 0
+    for i in movies:
+        if i["duration_min"] > threshold:
+            count += 1
+    return count
+
+print(count_long_movies(movies, threshold=120))
