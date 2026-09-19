@@ -231,5 +231,15 @@ def genres_only_in_one(movies_a, movies_b):
     return set_a - set_b
 
 
+def iter_high_rated(movies, min_rating=8.0):
+    """Отдает поочередно фильмы с рейтингом не ниже min_rating"""
+    for i in movies:
+        if i["rating"] >= min_rating:
+            yield i
 
+
+for i in iter_high_rated(movies):
+    print(format_report_line(i))
+
+total_duration = sum(i["duration_min"] for i in movies if i["rating"] > 7)
 
