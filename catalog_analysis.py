@@ -169,10 +169,22 @@ def make_slug(title):
 
 
 def format_report_line(movie):
+    """Возвращает единую строку с описанием фильма"""
     return (
         f'"{movie["title"]}" ({movie["year"]}) — {movie["rating"]}/10, ' 
         f'{duration_in_hours(movie["duration_min"])}, '
         f'жанры: {", ".join(sorted(movie["genres"]))}')
 
 
-print(format_report_line(movies[7]))
+def titles_sorted_by_rating(movies):
+    """Возвращает список названий фильмов, отсортированных по убыванию рейтинга"""
+    sorted_movies = sorted(movies, key=lambda i: i["rating"], reverse=True)
+    return [i["title"] for i in sorted_movies]
+
+
+def top_n_by_rating(movies, n=3):
+    """Возвращает список из n кортежей (title, rating) — топ по рейтингу"""
+    sorted_movies = sorted(movies, key=lambda i: i["rating"], reverse=True)
+    return [(i["title"], i["rating"]) for i in sorted_movies[:n]]
+
+
