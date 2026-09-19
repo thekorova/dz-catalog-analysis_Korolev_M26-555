@@ -128,6 +128,26 @@ def decade_label(year):
             return "старые"
 
 
+def non_comedy_moves(movies):
+    """Выводит названия фильмов без жанра комедия"""
+    for i in movies:
+        if "comedy" in i["genres"]:
+            continue
+        print(i["title"])
+
+
+def first_top_film(movies):
+    index = 0
+    while index < len(movies):
+        movie = movies[index]
+        if movie["rating"] > 9.0:
+            print(movie)
+            break
+        index += 1
+    else:
+        print("Шедевров не найдено")
+
+
 def count_long_movies(movies, threshold=120):
     """Возвращает количество фильмов с длительность большем threshold"""
     count = 0
@@ -222,6 +242,11 @@ def iter_high_rated(movies, min_rating=8.0):
             yield i
 
 
+def print_iter_high_rated(movies):
+    for i in iter_high_rated(movies):
+        print(format_report_line(i))
+
+
 total_duration = sum(i["duration_min"] for i in movies if i["rating"] > 7)
 
 
@@ -245,4 +270,5 @@ def build_report(movies):
     print(f'\nВсе жанры каталога: {", ".join(sorted(all_genres(movies)))}')
 
 
-build_report(movies)
+if __name__ == "__main__":
+    build_report(movies)
